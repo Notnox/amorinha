@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import CadastrosCard from './components/Cadastros/Card/Card'
 
+import './app.css'
 function App() {
+
+  const alunosCadastrados = {
+    "id": 1,
+    "nome": "Julia Correia dos Santos Neves",
+    "idade": 13,
+    "sexo": "Feminino",
+    "fotoUrl": "https://pbs.twimg.com/profile_images/1273986671487463424/7xmJd9iN_400x400.jpg",
+    "ra": [
+      {
+        "id": 1,
+        "alimento": "Peixe",
+      },
+      {
+        "id": 2,
+        "alimento": "Couve",
+      }
+    ]
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='corpo'>
+      <CadastrosCard alunosCadastrados={alunosCadastrados} />
     </div>
   );
 }
