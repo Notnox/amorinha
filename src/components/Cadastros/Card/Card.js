@@ -4,7 +4,7 @@ import './card.css'
 
 const CadastrosCard = ({ alunosCadastrados }) => (
     <div className='cadastroCard--corpo'>
-        <img src={alunosCadastrados.fotoUrl} className='cadastroCard--img' />
+        <img src={alunosCadastrados.fotoUrl} alt={alunosCadastrados.nome} className='cadastroCard--img' />
         <div className='cadastroCard--info'>
             <h1>{alunosCadastrados.nome}</h1>
             <section>
