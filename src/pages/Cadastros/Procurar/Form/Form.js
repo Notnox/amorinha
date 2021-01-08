@@ -1,13 +1,15 @@
+import CadastroForm from 'components/Cadastros/Form/Form';
+import UIContainer from 'components/UI/Container/Container';
 import React from 'react'
-import { useParams } from 'react-router-dom'
+//import { useParams } from 'react-router-dom'
 
 const PagesCadastrosForm = () => {
-const { id } = useParams();
+//const { id } = useParams();
 
     return (
-        <div>
-            {id && <div>id: {id}</div>}
-        </div>
+        <UIContainer>
+            <CadastroForm />
+        </UIContainer>
     )
 }
 
