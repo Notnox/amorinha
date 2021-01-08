@@ -1,0 +1,52 @@
+{
+    "cadastros": [
+        {
+            "id": 1,
+            "nome": "Julia Correia dos Santos Neves",
+            "idade": 13,
+            "sexo": "Feminino",
+            "fotoUrl": "https://pbs.twimg.com/profile_images/1273986671487463424/7xmJd9iN_400x400.jpg"
+        },
+        {
+            "id": 2,
+            "nome": "Antonio Carlos Nascimento",
+            "idade": 16,
+            "sexo": "Masculino",
+            "fotoUrl": "https://deolhonailha.com.br/fmanager/doni/news/imagem45756_1.jpg"
+        },
+        {
+            "id": 3,
+            "nome": "Stevan Junior Costa da Silva",
+            "idade": 12,
+            "sexo": "Masculino",
+            "fotoUrl": "https://scontent.fbfh8-1.fna.fbcdn.net/v/t1.0-1/95695768_2945072762241606_1035964605924376576_n.jpg?_nc_cat=1&ccb=2&_nc_sid=dbb9e7&_nc_ohc=rnenZp1KdY4AX_iS8Yy&_nc_ht=scontent.fbfh8-1.fna&oh=65ae12c322f389749da4ce2efbff1452&oe=6015E5C2"
+        }
+    ],
+    "ra": [
+        {
+            "id": 1,
+            "alimento": "Peixe",
+            "cadastroId": 1
+        },
+        {
+            "id": 2,
+            "alimento": "Couve",
+            "cadastroId": 1
+        },
+        {
+            "id": 3,
+            "alimento": "Arroz",
+            "cadastroId": 3
+        },
+        {
+            "id": 4,
+            "alimento": "Gengibre",
+            "cadastroId": 3
+        },
+        {
+            "id": 5,
+            "alimento": "Repolho",
+            "cadastroId": 3
+        }
+    ]
+}
