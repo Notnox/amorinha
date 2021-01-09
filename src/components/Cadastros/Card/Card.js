@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom'
 import './card.css'
 
 const CadastrosCard = ({ alunosCadastrados }) => (
@@ -21,6 +21,7 @@ const CadastrosCard = ({ alunosCadastrados }) => (
                     </div>
                 )}
             </footer>
+            <Link to={`/edit/${alunosCadastrados.id}`}>Editar</Link>
         </div>
     </div>
 )

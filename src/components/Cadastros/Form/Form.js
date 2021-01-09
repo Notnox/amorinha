@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
@@ -9,9 +9,18 @@ const initialValue = {
     "fotoUrl": ""
 }
 
-const CadastroForm = () => {
+const CadastroForm = ({ id }) => {
     const [values, setValues] = useState(initialValue)
     const history = useHistory()
+
+    useEffect(() => {
+        if (id) {
+            axios.get(`http://localhost:5000/Cadastro/${id}`)
+                .then((response) => {
+                    setValues(response.data)
+                })
+        }
+    },[])
 
     function onChange(event) {
         const { name, value } = event.target
@@ -39,6 +48,7 @@ const CadastroForm = () => {
                     placeholder='Nome'
                     name='nome'
                     onChange={onChange}
+                    value={values.nome}
                 />
 
                 <input 
@@ -46,6 +56,7 @@ const CadastroForm = () => {
                     placeholder='Idade'
                     name='idade'
                     onChange={onChange}
+                    value={values.idade}
                 />
 
                 <input 
@@ -53,6 +64,7 @@ const CadastroForm = () => {
                     placeholder='Sexo'
                     name='sexo'
                     onChange={onChange}
+                    value={values.sexo}
                 />
 
                 <input 
@@ -60,6 +72,7 @@ const CadastroForm = () => {
                     placeholder='Foto URL'
                     name='fotoUrl'
                     onChange={onChange}
+                    value={values.fotoUrl}
                 />
                 
                 <button type='submit'>Salvar</button>
