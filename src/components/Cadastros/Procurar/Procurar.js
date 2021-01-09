@@ -13,7 +13,7 @@ const CadastrosProcura = () => {
         if (pesquisa) {
             params.nome_like = pesquisa
         }
-        axios.get('http://localhost:5000/Cadastros?_embed=ra', { params })
+        axios.get('http://localhost:5000/Cadastros?_embed=ra&_order=desc&_sort=id', { params })
             .then((response) => {
                 setCadastros(response.data)
             })

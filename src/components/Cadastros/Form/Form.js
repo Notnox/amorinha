@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 const initialValue = {
     "nome": "",
@@ -8,10 +10,22 @@ const initialValue = {
 }
 
 const CadastroForm = () => {
-    const [value, setValue] = useState(initialValue)
+    const [values, setValues] = useState(initialValue)
+    const history = useHistory()
 
     function onChange(event) {
         const { name, value } = event.target
+
+        setValues({ ...values, [name]: value })
+    }
+
+    function onSubmit(event) {
+        event.preventDefault()
+
+        axios.post('http://localhost:5000/Cadastros', values)
+            .then((response) => {
+                history.push('/')
+            })
     }
 
     return (
@@ -19,7 +33,7 @@ const CadastroForm = () => {
             <h1>Cadastro</h1>
             <h2>Amorinha</h2>
 
-            <form>
+            <form onSubmit={onSubmit}>
                 <input 
                     type='text'
                     placeholder='Nome'
