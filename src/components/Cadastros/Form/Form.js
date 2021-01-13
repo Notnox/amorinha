@@ -10,12 +10,12 @@ const initialValue = {
 }
 
 const CadastroForm = ({ id }) => {
-    const [values, setValues] = useState(initialValue)
+    const [values, setValues] = useState(id ? null : initialValue)
     const history = useHistory()
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:5000/Cadastro/${id}`)
+            axios.get(`http://localhost:5000/Cadastros/${id}`)
                 .then((response) => {
                     setValues(response.data)
                 })
@@ -31,10 +31,20 @@ const CadastroForm = ({ id }) => {
     function onSubmit(event) {
         event.preventDefault()
 
-        axios.post('http://localhost:5000/Cadastros', values)
+        const method = id ? 'put' : 'post'
+
+        const url = id 
+            ? `http://localhost:5000/Cadastros/${id}`
+            : 'http://localhost:5000/Cadastros'
+
+        axios[method](url, values)
             .then((response) => {
                 history.push('/')
             })
+    }
+
+    if (!values) {
+        return <div>Carregando...</div>
     }
 
     return (

@@ -8,8 +8,11 @@ const CadastroList = ({ loading, cadastros }) => {
 
     return (
         <div>
-            {cadastros.map((alunosCadastrados) => (
-                <CadastrosCard alunosCadastrados={alunosCadastrados} />
+            {cadastros.map((alunosCadastrados, index) => (
+                <CadastrosCard 
+                    alunosCadastrados={alunosCadastrados} 
+                    key={index}
+                />
             ))}
         </div>
     )
