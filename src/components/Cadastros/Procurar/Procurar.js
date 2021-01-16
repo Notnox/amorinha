@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import CadastroList from '../List/List';
+import useApi from '../../utils/useApi'
 
 const CadastrosProcura = () => {
 
-    const [cadastros, setCadastros] = useState([])
     const [pesquisa, setPesquisa] = useState('')
+    const [load, loadInfo] = useApi({
+        url: '/Cadastros',
+        method: 'get',
+        params: {
+            _embed: 'ra',
+            _order: 'desc',
+            _sort: 'id',
+            nome_like: pesquisa || undefined,
+        },
+    })
 
     useEffect(() => {
-        const params = {}
-        if (pesquisa) {
-            params.nome_like = pesquisa
-        }
-        axios.get('http://localhost:5000/Cadastros?_embed=ra&_order=desc&_sort=id', { params })
-            .then((response) => {
-                setCadastros(response.data)
-            })
+        load()
     }, [pesquisa])
 
 
@@ -32,7 +35,11 @@ const CadastrosProcura = () => {
                 value={pesquisa}
                 onChange={(event) => setPesquisa(event.target.value)}
             />
-            <CadastroList cadastros={cadastros} loading={!cadastros.length}/>
+            <CadastroList 
+                cadastros={loadInfo.data} 
+                loading={loadInfo.loadind}
+                error={loadInfo.error}
+            />
         </div>
     )
 }

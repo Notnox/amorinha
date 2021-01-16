@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
+import useApi from 'components/utils/useApi'
 
 const initialValue = {
     "nome": "",
@@ -12,15 +13,30 @@ const initialValue = {
 const CadastroForm = ({ id }) => {
     const [values, setValues] = useState(id ? null : initialValue)
     const history = useHistory()
+    const [load] = useApi ({
+        url: `/Cadastros/${id}`,
+        method: 'get',
+        onCompleted: (response) => {
+            setValues(response.data)
+        }
+    })
+
+    const [save, saveInfo] = useApi({
+        url: id ? `/Cadastros/${id}` : '/Cadastros',
+        method: id ? 'put' : 'post',
+        onCompleted: (response) => {
+            if (!response.error){
+                history.push('/')
+            }
+        }
+
+    })
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:5000/Cadastros/${id}`)
-                .then((response) => {
-                    setValues(response.data)
-                })
+            load()
         }
-    },[])
+    },[id])
 
     function onChange(event) {
         const { name, value } = event.target
@@ -30,17 +46,9 @@ const CadastroForm = ({ id }) => {
 
     function onSubmit(event) {
         event.preventDefault()
-
-        const method = id ? 'put' : 'post'
-
-        const url = id 
-            ? `http://localhost:5000/Cadastros/${id}`
-            : 'http://localhost:5000/Cadastros'
-
-        axios[method](url, values)
-            .then((response) => {
-                history.push('/')
-            })
+        save({
+            data: values
+        })
     }
 
     if (!values) {
@@ -53,6 +61,7 @@ const CadastroForm = ({ id }) => {
             <h2>Amorinha</h2>
 
             <form onSubmit={onSubmit}>
+                {saveInfo.loadind && <span>Salvando dados...</span>}
                 <input 
                     type='text'
                     placeholder='Nome'
