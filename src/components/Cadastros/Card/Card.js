@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import './card.css'
 
-const CadastrosCard = ({ alunosCadastrados }) => (
+const CadastrosCard = ({ alunosCadastrados, onClickRestricao }) => (
     <div className='cadastroCard--corpo'>
         <img src={alunosCadastrados.fotoUrl} alt={alunosCadastrados.nome} className='cadastroCard--img' />
         <div className='cadastroCard--info'>
@@ -12,9 +12,9 @@ const CadastrosCard = ({ alunosCadastrados }) => (
                 <span>{alunosCadastrados.sexo}</span>
             </section>
             <footer className='cadastroCard--ra'>
-                <div>
+                <button onClick={onClickRestricao}>
                     {alunosCadastrados.ra.length} {alunosCadastrados.ra.length > 1 ? 'Alimentos' : 'Alimento'} com restição
-                </div>
+                </button>
                 {alunosCadastrados.ra.length > 0 && (
                     <div>
                         ({alunosCadastrados.ra.length > 1 ? alunosCadastrados.ra[0].alimento + '...' : alunosCadastrados.ra[0].alimento})
