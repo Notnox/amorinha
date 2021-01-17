@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios'
 import useApi from 'components/utils/useApi'
 
 const initialValue = {
@@ -36,6 +35,7 @@ const CadastroForm = ({ id }) => {
         if (id) {
             load()
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     },[id])
 
     function onChange(event) {

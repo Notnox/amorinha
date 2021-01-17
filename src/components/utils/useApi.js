@@ -1,17 +1,19 @@
 import { useState } from "react"
 import axios from 'axios'
+import useDebouncedPromise from 'components/utils/useDebouncedPromise'
 
-    const initialRequestInfo = {
-        error: null,
-        data: null,
-        loadind: false,
-    }
+const initialRequestInfo = {
+    error: null,
+    data: null,
+    loadind: false,
+}
 
-export default function useApi(config){
+export default function useApi(config) {
 
     const [requestInfo, setRequestInfo] = useState(initialRequestInfo)
+    const debouncedAxios = useDebouncedPromise(axios, config.debounceDelay)
 
-    async function call(localConfig){
+    async function call(localConfig) {
         setRequestInfo({
             ...initialRequestInfo,
             loadind: true,
@@ -19,18 +21,22 @@ export default function useApi(config){
 
         let response = null
 
+        const finalConfig = {
+            baseURL: 'http://localhost:5000',
+            ...config,
+            ...localConfig
+        }
+
+        const fn = finalConfig.debounced ? debouncedAxios : axios
+
         try {
-            response = await axios({
-                baseURL: 'http://localhost:5000',
-                ...config,
-                ...localConfig
-            })
-    
+            response = await fn(finalConfig)
+
             setRequestInfo({
                 ...initialRequestInfo,
                 data: response.data,
             })
-        } catch(error) {
+        } catch (error) {
             setRequestInfo({
                 ...initialRequestInfo,
                 error,
@@ -40,6 +46,8 @@ export default function useApi(config){
         if (config.onCompleted) {
             config.onCompleted(response)
         }
+
+        return response
     }
 
     return [

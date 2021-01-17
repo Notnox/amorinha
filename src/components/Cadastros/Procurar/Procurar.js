@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CadastroList from '../List/List';
 import useApi from '../../utils/useApi'
 
 const CadastrosProcura = () => {
 
+    const mountRef = useRef(null)
     const [pesquisa, setPesquisa] = useState('')
     const [load, loadInfo] = useApi({
+        debounceDelay: 300,
+        debounced: true,
         url: '/Cadastros',
         method: 'get',
         params: {
@@ -19,7 +21,15 @@ const CadastrosProcura = () => {
     })
 
     useEffect(() => {
-        load()
+
+        load({
+            debounced: mountRef.current
+        });
+
+        if (!mountRef.current) {
+            mountRef.current = true
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pesquisa])
 
 
